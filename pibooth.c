@@ -463,7 +463,7 @@ int main(int argc, char **argv) {
 	set_token(&tokens[2], 6, card3);
 
 	char *cam_envp[] = { NULL };
- 	char *cam_argv[] = { "/opt/vc/bin/raspistill",  "-o test.jpg", "-awb auto", "-ifx",  "-mm",  "-q 75", "-e jpg", NULL };
+ 	char *cam_argv[] = { "/usr/bin/raspistill",  "-o test.jpg", "-awb auto", "-ifx",  "-mm",  "-q 75", "-e jpg", NULL };
 
 
 
