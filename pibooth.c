@@ -549,7 +549,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					      // Code only executed by child process
 					   		int ret = execve(cam_argv[0], cam_argv, cam_envp);
 					   		
-					      _exit(0);
+					      
 					    }
 					    else if (pID < 0)            // failed to fork
 					    {
