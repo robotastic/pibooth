@@ -548,7 +548,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					   {
 					      // Code only executed by child process
 					   		int ret = execve(cam_argv[0], cam_argv, cam_envp);
-					   		
+					   		printf("finished with exec\n");
 					      
 					    }
 					    else if (pID < 0)            // failed to fork
@@ -559,16 +559,19 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					    }
 			    		process_file(anims[tokens[i].anim_num]);
 			    		process_file(anims[tokens[i].anim_num]);
+			    		printf("Done with animation\n");
 			    		kill(pID, SIGUSR1);
+			    		printf("sent signal")
 			    	}
 			    }
 
 			    //loop_shader(500);
-
+			    printf("clearing\n");
 				for (i = 0; i < 64; i++){
 					setPixelColorRGB(i,0,0,0);
 				}
 				ws2811_render(&ledstring);
+				printf("all done\n");
 			  }
 
 
