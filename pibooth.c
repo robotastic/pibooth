@@ -462,8 +462,8 @@ int main(int argc, char **argv) {
 	set_token(&tokens[1], 5, card2);
 	set_token(&tokens[2], 6, card3);
 
-	char *envp[] = { NULL };
- 	char *argv[] = { "/opt/vc/bin/raspistill",  "-o test.jpg", "-awb auto", "-ifx",  "-mm",  "-q 75", "-e jpg", NULL };
+	char *cam_envp[] = { NULL };
+ 	char *cam_argv[] = { "/opt/vc/bin/raspistill",  "-o test.jpg", "-awb auto", "-ifx",  "-mm",  "-q 75", "-e jpg", NULL };
 
 
 
@@ -547,7 +547,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 		    		   if (pID == 0)                // child
 					   {
 					      // Code only executed by child process
-					   		int ret = execve(argv[0], argv, envp);
+					   		int ret = execve(cam_argv[0], cam_argv, cam_envp);
 					   		
 					      _exit(0);
 					    }
