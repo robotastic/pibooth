@@ -561,7 +561,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 			    		process_file(anims[tokens[i].anim_num]);
 			    		printf("Done with animation\n");
 			    		kill(pID, SIGUSR1);
-			    		printf("sent signal")
+			    		printf("sent signal\n");
 			    	}
 			    }
 
