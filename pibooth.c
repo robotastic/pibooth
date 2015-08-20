@@ -549,7 +549,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 			    	if (memcmp(tokens[i].id, nt.nti.nai.abtUid, min_len) == 0 ) {
 			    		printf("        - Match Found!\n");
 			    		
-			    		pid_t cam_pID = fork();
+			    		pid_t cam_pID = vfork();
 		    		   if (cam_pID == 0)                // child
 					   {
 					      // Code only executed by child process
@@ -568,7 +568,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 							setPixelColorRGB(i,255,255,255);
 						}
 						ws2811_render(&ledstring);
-			    		
+			    		kill(cam_pID, SIGUSR1);
 			    		usleep(100*1000);
 			    		
 			    		
@@ -594,7 +594,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					     	process_file(anims[1]);
 					     }
 					     printf("Cam PID: %d\n",cam_pID);
-					     kill(cam_pID, SIGABRT);
+					     kill(cam_pID, SIGKILL);
 
 
 			    	}
