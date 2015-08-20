@@ -591,7 +591,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					     while(waitpid(mail_pID, &status, WNOHANG|WUNTRACED)==0) {
 					     	process_file(anims[1]);
 					     }
-					     kill(cam_pID, SIGKILL);
+					     //kill(cam_pID, SIGKILL);
 					     break;
 
 			    	}
