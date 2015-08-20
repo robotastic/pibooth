@@ -466,7 +466,7 @@ int main(int argc, char **argv) {
 
 	char *cam_envp[] = { NULL };
 	char *mail_argv[] = { "/usr/bin/mutt", "-s", "'Testing mutt'", "lukekb@gmail.com", "-a", "test.jpg"};
- 	char *cam_argv[] = { "/usr/bin/raspistill", "-s", "-o", "test.jpg", "-awb", "auto",  "-mm",  "-q", "75", "-e", "jpg", NULL };
+ 	char *cam_argv[] = { "/usr/bin/raspistill", "-s", "-o", "test.jpg", "-awb", "auto",  "-q", "75", "-e", "jpg", NULL };
 
 
 
