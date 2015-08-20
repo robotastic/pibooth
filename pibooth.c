@@ -547,7 +547,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 			    	if (memcmp(tokens[i].id, nt.nti.nai.abtUid, min_len) == 0 ) {
 			    		printf("        - Match Found!\n");
 			    		
-			    		pid_t cam_pID = vfork();
+			    		pid_t cam_pID = fork();
 		    		   if (cam_pID == 0)                // child
 					   {
 					      // Code only executed by child process
@@ -571,7 +571,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 			    		
 
 			    		//forks off for Mutt
-			    		pid_t mail_pID = vfork();
+			    		pid_t mail_pID = fork();
 		    		   if (mail_pID == 0)                // child
 					   {
 					      // Code only executed by child process
@@ -591,7 +591,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					     	process_file(anims[1]);
 					     }
 					     kill(cam_pID, SIGKILL);
-					     
+					     break;
 
 			    	}
 			    }
