@@ -465,7 +465,7 @@ int main(int argc, char **argv) {
 	set_token(&tokens[2], 6, card3);
 
 	char *cam_envp[] = { NULL };
-	char *mail_argv[] = { "/usr/bin/mutt", "-s", "'Testing mutt'", "lukekb@gmail.com", "-a", "test.jpg"};
+	char *mail_argv[] = { "/usr/bin/mutt", "-s", "Testing this out", "lukekb@gmail.com", "-a", "test.jpg"};
  	char *cam_argv[] = { "/usr/bin/raspistill", "-s", "-o", "test.jpg", "-awb", "auto",  "-q", "75", "-e", "jpg", NULL };
 
 
@@ -546,16 +546,16 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 			   		
 			    	if (memcmp(tokens[i].id, nt.nti.nai.abtUid, min_len) == 0 ) {
 			    		printf("        - Match Found!\n");
-			    		pid_t endID;
-			    		pid_t pID = vfork();
-		    		   if (pID == 0)                // child
+			    		
+			    		pid_t cam_pID = vfork();
+		    		   if (cam_pID == 0)                // child
 					   {
 					      // Code only executed by child process
 					   		int ret = execve(cam_argv[0], cam_argv, cam_envp);
 					   		printf("Should never see this\n");
 					      
 					    }
-					    else if (pID < 0)            // failed to fork
+					    else if (cam_pID < 0)            // failed to fork
 					    {
 					        //cerr << "Failed to fork" << endl;
 					        //exit(1);
@@ -566,20 +566,20 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 							setPixelColorRGB(i,255,255,255);
 						}
 						ws2811_render(&ledstring);
-			    		kill(pID, SIGUSR1);
+			    		kill(cam_pID, SIGUSR1);
 			    		usleep(100*1000);
 			    		
 
 			    		//forks off for Mutt
-			    		pID = vfork();
-		    		   if (pID == 0)                // child
+			    		pid_t mail_pID = vfork();
+		    		   if (mail_pID == 0)                // child
 					   {
 					      // Code only executed by child process
 					   		int ret = execve(mail_argv[0], mail_argv, cam_envp);
 					   		printf("Should never see this\n");
 					      
 					    }
-					    else if (pID < 0)            // failed to fork
+					    else if (mail_pID < 0)            // failed to fork
 					    {
 					        //cerr << "Failed to fork" << endl;
 					        //exit(1);
@@ -587,9 +587,10 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					    }
 					    int status;
 					    process_file(anims[1]);
-					     while(waitpid(pID, &status, WNOHANG|WUNTRACED)==0) {
+					     while(waitpid(mail_pID, &status, WNOHANG|WUNTRACED)==0) {
 					     	process_file(anims[1]);
 					     }
+					     kill(cam_pID, SIGKILL);
 					     break;
 
 			    	}
