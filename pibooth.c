@@ -492,7 +492,7 @@ int main(int argc, char **argv) {
  
 
 
-	for (i = 0; i < 64; i++) {
+	for (i = 0; i < 9; i++) {
 		struct sigaction sa;
 		memset(&sa, 0, sizeof(sa));
 		sa.sa_handler = unicorn_exit;
