@@ -591,7 +591,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					     	process_file(anims[1]);
 					     }
 					     kill(cam_pID, SIGKILL);
-					     break;
+					     
 
 			    	}
 			    }
