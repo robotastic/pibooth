@@ -576,7 +576,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					   {
 					      // Code only executed by child process
 					   		printf("iam here\n");
-					   		int ret = execve(mail_argv[0], mail_argv, cam_envp);
+					   		//int ret = execve(mail_argv[0], mail_argv, cam_envp);
 					   		printf("Should never see this\n");
 					      	_exit(0);
 					    }
