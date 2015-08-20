@@ -566,7 +566,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 							setPixelColorRGB(i,255,255,255);
 						}
 						ws2811_render(&ledstring);
-			    		kill(cam_pID, SIGUSR1);
+			    		
 			    		usleep(100*1000);
 			    		
 
