@@ -569,7 +569,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 						}
 						ws2811_render(&ledstring);
 			    		kill(cam_pID, SIGUSR1);
-			    		usleep(100*1000);
+			    		usleep(1000*1000);
 			    		
 			    		
 			    		//forks off for Mutt
