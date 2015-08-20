@@ -465,7 +465,7 @@ int main(int argc, char **argv) {
 	set_token(&tokens[2], 6, card3);
 
 	char *cam_envp[] = { NULL };
-	char *mail_argv[] = { "/usr/bin/mutt", "-s", "Testing this out", "lukekb@gmail.com", "-a", "test.jpg"};
+	char *mail_argv[] = { "./muttmail.sh", NULL};
  	char *cam_argv[] = { "/usr/bin/raspistill", "-s", "-o", "test.jpg", "-awb", "auto",  "-q", "10", "-rot", "270", "-e", "jpg", NULL };
 
 
@@ -575,7 +575,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 		    		   if (mail_pID == 0)                // child
 					   {
 					      // Code only executed by child process
-					   		//int ret = execve(mail_argv[0], mail_argv, cam_envp);
+					   		int ret = execve(mail_argv[0], mail_argv, cam_envp);
 					   		printf("Should never see this\n");
 					      
 					    }
