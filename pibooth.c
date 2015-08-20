@@ -571,12 +571,12 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 			    		
 
 			    		//forks off for Mutt
-			    	/*	pid_t mail_pID = fork();
+			    		pid_t mail_pID = fork();
 		    		   if (mail_pID == 0)                // child
 					   {
 					      // Code only executed by child process
 					   		printf("iam here\n");
-					   		//int ret = execve(mail_argv[0], mail_argv, cam_envp);
+					   		int ret = execve(mail_argv[0], mail_argv, cam_envp);
 					   		printf("Should never see this\n");
 					      	_exit(0);
 					    }
@@ -590,9 +590,9 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					    process_file(anims[1]);
 					     while(waitpid(mail_pID, &status, WNOHANG|WUNTRACED)==0) {
 					     	process_file(anims[1]);
-					     }*/
+					     }
 					     kill(cam_pID, SIGKILL);
-					     break;
+
 
 			    	}
 			    }
