@@ -594,7 +594,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					     	process_file(anims[1]);
 					     }*/
 					     printf("Cam PID: %d\n",cam_pID);
-					     kill(cam_pID, SIGKILL);
+					     kill(cam_pID, SIGCHLD);
 
 
 			    	}
