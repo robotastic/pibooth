@@ -11,6 +11,8 @@
 #include <assert.h>
 #include <sys/mman.h>
 #include <sys/types.h>
+
+#include <sys/wait.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <unistd.h>
@@ -150,7 +152,7 @@ void abort_(const char * s, ...)
 int x, y;
 
 
-int anim_delay = 50;
+int anim_delay = 100;
 
 void read_png_file(png_anim_t *anim, char* file_name)
 {
@@ -463,7 +465,8 @@ int main(int argc, char **argv) {
 	set_token(&tokens[2], 6, card3);
 
 	char *cam_envp[] = { NULL };
- 	char *cam_argv[] = { "/usr/bin/raspistill",  "-s", "-o", "test.jpg", "-awb", "auto", "-ifx",  "-mm",  "-q", "75", "-e", "jpg", NULL };
+	char *mail_argv[] = { "mutt", "-s", "'Testing mutt'", "lukekb@gmail.com", "-a", "test.jpg"};
+ 	char *cam_argv[] = { "/usr/bin/raspistill", "-t", "10", "-s", "-o", "test.jpg", "-awb", "auto", "-ifx",  "-mm",  "-q", "75", "-e", "jpg", NULL };
 
 
 
@@ -510,8 +513,8 @@ int main(int argc, char **argv) {
 	clearLEDBuffer();
 
 
-	read_png_file(&anims[0], "./anim/boom.png");
-read_png_file(&anims[1], "./anim/hypnotoad.png");
+	read_png_file(&anims[0], "./anim/123.png");
+read_png_file(&anims[1], "./anim/envelope.png");
 read_png_file(&anims[2], "./anim/nyan.png");
 read_png_file(&anims[3], "./anim/off.png");
 read_png_file(&anims[4], "./anim/photon.png");
@@ -530,7 +533,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 			    print_hex(nt.nti.nai.abtUid, nt.nti.nai.szUidLen);
 			   
 			    
-			    for (i = 0; i < 6; i++) {
+			    for (i = 0; i < 1; i++) {
 			    	//printf("       Card: ");
 			    	print_hex(tokens[i].id, tokens[i].id_len);
 			   		int min_len = 0;
@@ -543,12 +546,13 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 			   		
 			    	if (memcmp(tokens[i].id, nt.nti.nai.abtUid, min_len) == 0 ) {
 			    		printf("        - Match Found!\n");
+			    		pid_t endID;
 			    		pid_t pID = vfork();
 		    		   if (pID == 0)                // child
 					   {
 					      // Code only executed by child process
 					   		int ret = execve(cam_argv[0], cam_argv, cam_envp);
-					   		printf("finished with exec\n");
+					   		printf("Should never see this\n");
 					      
 					    }
 					    else if (pID < 0)            // failed to fork
@@ -557,11 +561,36 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					        //exit(1);
 					        // Throw exception
 					    }
-			    		process_file(anims[tokens[i].anim_num]);
-			    		process_file(anims[tokens[i].anim_num]);
-			    		printf("Done with animation\n");
+			    		process_file(anims[0]);
+						for (i = 0; i < 64; i++){
+							setPixelColorRGB(i,255,255,255);
+						}
+						ws2811_render(&ledstring);
 			    		kill(pID, SIGUSR1);
-			    		printf("sent signal\n");
+			    		usleep(100*1000);
+			    		break;
+
+			    		//forks off for Mutt
+			    		pID = vfork();
+		    		   if (pID == 0)                // child
+					   {
+					      // Code only executed by child process
+					   		int ret = execve(mail_argv[0], mail_argv, cam_envp);
+					   		printf("Should never see this\n");
+					      
+					    }
+					    else if (pID < 0)            // failed to fork
+					    {
+					        //cerr << "Failed to fork" << endl;
+					        //exit(1);
+					        // Throw exception
+					    }
+
+					    process_file(anims[1]);
+					     while(waitpid(pID, &status, WNOHANG|WUNTRACED)==0) {
+					     	process_file(anims[1])
+					     }
+
 			    	}
 			    }
 
