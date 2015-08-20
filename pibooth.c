@@ -433,6 +433,8 @@ void init_nfc() {
 */
 void unicorn_exit(int status){
 	int i;
+
+	printf("I got the sig!\n");
 	for (i = 0; i < 64; i++){
 		setPixelColorRGB(i,0,0,0);
 	}
@@ -591,6 +593,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					     while(waitpid(mail_pID, &status, WNOHANG|WUNTRACED)==0) {
 					     	process_file(anims[1]);
 					     }*/
+					     printf("Cam PID: %d\n",cam_pID);
 					     kill(cam_pID, SIGKILL);
 
 
