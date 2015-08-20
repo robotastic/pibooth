@@ -588,7 +588,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 
 					    process_file(anims[1]);
 					     while(waitpid(pID, &status, WNOHANG|WUNTRACED)==0) {
-					     	process_file(anims[1])
+					     	process_file(anims[1]);
 					     }
 
 			    	}
