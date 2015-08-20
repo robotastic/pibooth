@@ -571,7 +571,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 			    		
 			    		usleep(100*1000);
 			    		
-			    		/*
+			    		
 			    		//forks off for Mutt
 			    		pid_t mail_pID = fork();
 		    		   if (mail_pID == 0)                // child
@@ -592,7 +592,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					    process_file(anims[1]);
 					     while(waitpid(mail_pID, &status, WNOHANG|WUNTRACED)==0) {
 					     	process_file(anims[1]);
-					     }*/
+					     }
 					     printf("Cam PID: %d\n",cam_pID);
 					     kill(cam_pID, SIGABRT);
 
