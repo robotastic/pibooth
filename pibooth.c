@@ -553,7 +553,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					      // Code only executed by child process
 					   		int ret = execve(cam_argv[0], cam_argv, cam_envp);
 					   		printf("Should never see this\n");
-					      
+					      	_exit();
 					    }
 					    else if (cam_pID < 0)            // failed to fork
 					    {
@@ -575,9 +575,10 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 		    		   if (mail_pID == 0)                // child
 					   {
 					      // Code only executed by child process
+					   		printf("iam here\n");
 					   		int ret = execve(mail_argv[0], mail_argv, cam_envp);
 					   		printf("Should never see this\n");
-					      
+					      	_exit();
 					    }
 					    else if (mail_pID < 0)            // failed to fork
 					    {
