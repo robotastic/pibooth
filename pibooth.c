@@ -466,7 +466,7 @@ int main(int argc, char **argv) {
 
 	char *cam_envp[] = { NULL };
 	char *mail_argv[] = { "/usr/bin/mutt", "-s", "'Testing mutt'", "lukekb@gmail.com", "-a", "test.jpg"};
- 	char *cam_argv[] = { "/usr/bin/raspistill", "-t", "10", "-s", "-o", "test.jpg", "-awb", "auto", "-ifx",  "-mm",  "-q", "75", "-e", "jpg", NULL };
+ 	char *cam_argv[] = { "/usr/bin/raspistill", "-s", "-o", "test.jpg", "-awb", "auto", "-ifx",  "-mm",  "-q", "75", "-e", "jpg", NULL };
 
 
 
@@ -568,7 +568,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 						ws2811_render(&ledstring);
 			    		kill(pID, SIGUSR1);
 			    		usleep(100*1000);
-			    		break;
+			    		
 
 			    		//forks off for Mutt
 			    		pID = vfork();
@@ -590,6 +590,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					     while(waitpid(pID, &status, WNOHANG|WUNTRACED)==0) {
 					     	process_file(anims[1]);
 					     }
+					     break;
 
 			    	}
 			    }
