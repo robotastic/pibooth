@@ -516,7 +516,7 @@ int main(int argc, char **argv) {
 
 
 	read_png_file(&anims[0], "./anim/321.png");
-read_png_file(&anims[1], "./anim/envelope.png");
+read_png_file(&anims[1], "./anim/envelope2.png");
 read_png_file(&anims[2], "./anim/nyan.png");
 read_png_file(&anims[3], "./anim/off.png");
 read_png_file(&anims[4], "./anim/photon.png");
