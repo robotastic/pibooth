@@ -590,8 +590,8 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 		    		   if (mail_pID == 0)                // child
 					   {
 					      // Code only executed by child process
-					   		//mail_argv[1] = tokens[i].email;
-					   		strcpy(mail_argv[1], tokens[i].email);
+					   		mail_argv[1] = tokens[i].email;
+					   		//strcpy(mail_argv[1], tokens[i].email);
 					   		int ret = execve(mail_argv[0], mail_argv, cam_envp);
 					   		printf("Should never see this mail\n");
 					      	_exit(0);
