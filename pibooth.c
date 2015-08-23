@@ -74,11 +74,12 @@ typedef struct
 {
 	unsigned char *id;
 	int id_len;
-	int anim_num;	
+	int anim_num;
+	char *email;	
 } token_t;
 
 
-	token_t tokens[3];
+  token_t tokens[6];
   png_anim_t anims[12];
   nfc_device *pnd;
   nfc_target nt;
@@ -448,26 +449,37 @@ void unicorn_exit(int status){
 	exit(status);
 }
 
-void set_token(token_t * token, int anim_num, const unsigned char token_id[]){
+void set_token(token_t * token,  const unsigned char token_id[], char* email, int anim_num){
 	token->id_len = sizeof(token_id);
 	token->id = malloc(token->id_len * sizeof(unsigned char));
 	memcpy(token->id, token_id,  token->id_len * sizeof(unsigned char));
 	token->anim_num = anim_num;
+	token->email = email;
 }
 
 int main(int argc, char **argv) {
 	int shader = 0;
 	int i;
 
-	const unsigned char card[] = { 0x04, 0xa4, 0xbb,  0x3a,  0x40,  0x3e,  0x80 };
-	const unsigned char card2[] = { 0xa7,  0x08,  0x3c,  0xf2 };
-	const unsigned char card3[] = { 0x93,  0x34,  0xc6,  0x2c };
-	set_token(&tokens[0], 0, card);
-	set_token(&tokens[1], 5, card2);
-	set_token(&tokens[2], 6, card3);
+
+ 
+
+	const unsigned char card1[] = { 0x04, 0xa4, 0xbb, 0x3a, 0x40, 0x3e, 0x80 };
+	const unsigned char card2[] = { 0x04, 0x4a, 0xed, 0xe2, 0xdf, 0x3f, 0x80 };
+	const unsigned char card3[] = { 0x04, 0x52, 0xe3, 0xca, 0xdf, 0x3f, 0x80 };
+	const unsigned char card4[] = { 0x04, 0x99, 0xae, 0x42, 0xe1, 0x3f, 0x80 };
+	const unsigned char card5[] = { 0x20, 0x15, 0xe2, 0xbd };
+	//const unsigned char card2[] = { 0xa7,  0x08,  0x3c,  0xf2 };
+	//const unsigned char card3[] = { 0x93,  0x34,  0xc6,  0x2c };
+	set_token(&tokens[0], card1, "lukekb@gmail.com", 2);
+	set_token(&tokens[1], card2, "lukekb@gmail.com", 2);
+	set_token(&tokens[2], card3, "lukekb@gmail.com", 2);
+	set_token(&tokens[3], card4, "lukekb@gmail.com", 2);
+	set_token(&tokens[4], card5, "lukekb@gmail.com", 2);
+
 
 	char *cam_envp[] = { NULL };
-	char *mail_argv[] = { "./muttmail.sh", NULL};
+	char *mail_argv[] = { "./muttmail.sh", "temp@email.com", NULL};
  	char *cam_argv[] = { "/usr/bin/raspistill", "-s", "-o", "test.jpg", "-awb", "auto",  "-q", "10", "-rot", "270", "-e", "jpg", NULL };
 
 
@@ -535,7 +547,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 			    print_hex(nt.nti.nai.abtUid, nt.nti.nai.szUidLen);
 			   
 			    
-			    for (i = 0; i < 1; i++) {
+			    for (i = 0; i < sizeof(tokens); i++) {
 			    	//printf("       Card: ");
 			    	print_hex(tokens[i].id, tokens[i].id_len);
 			   		int min_len = 0;
@@ -547,7 +559,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 			   		//printf("        - MemCMP: %d\n", memcmp(tokens[i].id, nt.nti.nai.abtUid, min_len));
 			   		
 			    	if (memcmp(tokens[i].id, nt.nti.nai.abtUid, min_len) == 0 ) {
-			    		printf("        - Match Found!\n");
+			    		printf("        - Match Found, token: %d\n",i);
 			    		
 			    		pid_t cam_pID = vfork();
 		    		   if (cam_pID == 0)                // child
@@ -578,6 +590,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					   {
 					      // Code only executed by child process
 					   		printf("iam here\n");
+					   		mail_argv[1] = tokens[i].email;
 					   		int ret = execve(mail_argv[0], mail_argv, cam_envp);
 					   		printf("Should never see this mail\n");
 					      	_exit(0);
