@@ -587,7 +587,8 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 			    		
 			    		//forks off for Mutt
 			    		pid_t mail_pID = fork();
-			    		mail_argv[1] = tokens[i].email;
+			    		//mail_argv[1] = tokens[i].email;
+			    		strcpy(mail_argv[1], tokens[i].email);
 					   	printf("Mail address: %s\n",mail_argv[1]);
 		    		   if (mail_pID == 0)                // child
 					   {
