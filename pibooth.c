@@ -459,7 +459,7 @@ void set_token(token_t * token,  const unsigned char token_id[], char* email, in
 
 int main(int argc, char **argv) {
 	int shader = 0;
-	int i;
+	int i, j;
 
 
  
@@ -577,7 +577,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					        // Throw exception
 					    }
 			    		process_file(anims[0]);
-						for (int j = 0; j < 64; j++){
+						for ( j = 0; j < 64; j++){
 							setPixelColorRGB(j,255,255,255);
 						}
 						ws2811_render(&ledstring);
@@ -619,7 +619,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 
 			    //loop_shader(500);
 			    printf("clearing\n");
-				for (int j = 0; j < 64; j++){
+				for (j = 0; j < 64; j++){
 					setPixelColorRGB(j,0,0,0);
 				}
 				ws2811_render(&ledstring);
