@@ -479,7 +479,7 @@ int main(int argc, char **argv) {
 
 
 	char *cam_envp[] = { NULL };
-	char *mail_argv[] = { "./muttmail.sh", "temp@email.com", NULL};
+	char *mail_argv[] = { "./muttmail.sh", "                                                        ", NULL};
  	char *cam_argv[] = { "/usr/bin/raspistill", "-s", "-o", "test.jpg", "-awb", "auto",  "-q", "10", "-rot", "270", "-e", "jpg", NULL };
 
 
@@ -590,7 +590,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					   {
 					      // Code only executed by child process
 					   		printf("iam here\n");
-					   		mail_argv[1] = tokens[i].email;
+					   		strcpy(mail_argv[1], tokens[i].email);
 					   		int ret = execve(mail_argv[0], mail_argv, cam_envp);
 					   		printf("Should never see this mail\n");
 					      	_exit(0);
