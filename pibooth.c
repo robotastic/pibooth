@@ -587,7 +587,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 			    		
 			    		//forks off for Mutt
 			    		pid_t mail_pID = fork();
-			    		//mail_argv[1] = tokens[i].email;
+			    		mail_argv[1] = tokens[i].email;
 			    		//strcpy(mail_argv[1], tokens[i].email);
 					   	printf("Mail address: %s\n",mail_argv[1]);
 		    		   if (mail_pID == 0)                // child
@@ -595,7 +595,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					      // Code only executed by child process
 
 					   		//strcpy(mail_argv[1], tokens[i].email);
-					   		int ret = execl("./muttmail.sh", tokens[i].email, NULL);
+					   		int ret = execve(mail_argv[0], mail_argv, NULL);
 					   		printf("Should never see this mail\n");
 					      	_exit(0);
 					    }
