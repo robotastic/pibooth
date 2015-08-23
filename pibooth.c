@@ -480,7 +480,7 @@ int main(int argc, char **argv) {
 
 	char *cam_envp[] = { NULL };
 	char *mail_argv[] = { "./muttmail.sh", "lukekb@gmail.com", NULL};
- 	char *cam_argv[] = { "/usr/bin/raspistill", "-s", "-o", "test.jpg", "-awb", "auto",  "-q", "10", "-rot", "270", "-e", "jpg", "-ss", "10000", "-w", "1296", "-h", "730", NULL };
+ 	char *cam_argv[] = { "/usr/bin/raspistill", "-s", "-o", "test.jpg", "-awb", "auto",  "-q", "10", "-rot", "270", "-e", "jpg", "-ss", "100000", "-w", "1296", "-h", "730", NULL };
 
 
 
