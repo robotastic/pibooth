@@ -591,6 +591,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					   {
 					      // Code only executed by child process
 					   		mail_argv[1] = tokens[i].email;
+					   		printf("Mail address: %s\n",mail_argv[1]);
 					   		//strcpy(mail_argv[1], tokens[i].email);
 					   		int ret = execve(mail_argv[0], mail_argv, cam_envp);
 					   		printf("Should never see this mail\n");
