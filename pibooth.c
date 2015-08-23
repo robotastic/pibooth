@@ -577,8 +577,8 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					        // Throw exception
 					    }
 			    		process_file(anims[0]);
-						for (i = 0; i < 64; i++){
-							setPixelColorRGB(i,255,255,255);
+						for (int j = 0; j < 64; j++){
+							setPixelColorRGB(j,255,255,255);
 						}
 						ws2811_render(&ledstring);
 			    		kill(cam_pID, SIGUSR1);
@@ -619,8 +619,8 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 
 			    //loop_shader(500);
 			    printf("clearing\n");
-				for (i = 0; i < 64; i++){
-					setPixelColorRGB(i,0,0,0);
+				for (int j = 0; j < 64; j++){
+					setPixelColorRGB(j,0,0,0);
 				}
 				ws2811_render(&ledstring);
 				printf("all done\n");
