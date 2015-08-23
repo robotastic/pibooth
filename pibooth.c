@@ -595,7 +595,7 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 					      // Code only executed by child process
 
 					   		//strcpy(mail_argv[1], tokens[i].email);
-					   		int ret = execve(mail_argv[0], mail_argv, cam_envp);
+					   		int ret = execl("./muttmail.sh", tokens[i].email, NULL);
 					   		printf("Should never see this mail\n");
 					      	_exit(0);
 					    }
