@@ -565,8 +565,9 @@ read_png_file(&anims[11], "./anim/umbrella.png");
 		    		   if (cam_pID == 0)                // child
 					   {
 					      // Code only executed by child process
-					   		int ret = execve(cam_argv[0], cam_argv, cam_envp);
+					   		//int ret = execve(cam_argv[0], cam_argv, cam_envp);
 					   		printf("Should never see this cam\n");
+					   		_exit(0);
 					      	
 					    }
 					    else if (cam_pID < 0)            // failed to fork
